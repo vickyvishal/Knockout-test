@@ -1,0 +1,21 @@
+<!doctype html>
+	<title>Cat age</title>
+		<body>
+			<h4>Cute Cats</h4>
+			<ul data-bind="for each: cat">
+				<li>
+					<p>Nick Name</p><span data-bind="text: firstName"></span>
+				</li>
+			</ul>
+			<script type='text/javascript' src='js/knockout-3.4.1.js'>
+				ko.applyBindings({
+					cat: [
+						{ firstName: 'Bert'},
+						{ firstName: 'Charles'},
+						{ firstName: 'Denise'}
+					]
+				});
+			</script>
+
+		</body>
+</html>
