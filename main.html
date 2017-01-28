@@ -1,20 +1,41 @@
 <!doctype html>
+<head>
 	<title>Cat age</title>
+	<script src='js/knockout-3.4.1.js'></script>
+</head>
 		<body>
 			<h4>Cute Cats</h4>
-			<ul data-bind="for each: cat">
-				<li>
-					<p>Nick Name</p><span data-bind="text: firstName"></span>
-				</li>
-			</ul>
-			<script type='text/javascript' src='js/knockout-3.4.1.js'>
-				ko.applyBindings({
-					cat: [
-						{ firstName: 'Bert'},
-						{ firstName: 'Charles'},
-						{ firstName: 'Denise'}
-					]
-				});
+			<p>Nick Name</p>
+			<div>
+				<h2 data-bind="text: name"></h2>
+				<h3 data-bind="text: title"></h3>
+				<div data-bind="text: clickCount"></div>
+				<img src="" data-bind="click: incrementCounter, attr: {src: imgSrc}"/>
+					<ul data-bind="foreach: nickName">
+						<li data-bind="text: $data"></li>
+					</ul>
+			</div>
+			<script type='text/javascript'>
+				var ViewModel = function(){
+					this.name = ko.observable('Kitty');
+					this.clickCount = ko.observable(0);
+					console.log(this.name);
+					this.imgSrc = ko.observable('image/cat1.jpg');
+					this.nickName = ko.observableArray(['one','two','three']);
+					this.incrementCounter = function(){
+						this.clickCount ++;
+					}
+					this.title = ko.computed(function(){
+						var title;
+						var clicks = this.clickCount();
+						if(clicks < 10){title='toddler';}
+						if(clicks < 20){title='infant';}
+						if(clicks < 30){title='asshole';}
+						else {title="wizard";}
+					return title;
+					})
+				}
+				ko.applyBindings(ViewModel());
 			</script>
 
 		</body>
